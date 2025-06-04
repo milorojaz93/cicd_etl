@@ -1,0 +1,56 @@
+version: '3.8'
+
+services:
+  mysql:
+    build: ./mysql
+    container_name: mysql_ventas
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: ventas_db
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - red_etl
+
+  spark-etl:
+    build: ./etl
+    container_name: spark_etl
+    depends_on:
+      - mysql
+    environment:
+      SPARK_MODE: client
+    command: >
+      bash -c "sleep 15 && spark-submit --jars /opt/spark/jars/mysql-connector-j-9.3.0.jar process_prov.py"
+    volumes:
+      - ./bucket:/output
+    networks:
+      - red_etl
+
+  api:
+    build:
+      context: ./api
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./bucket:/data
+      - ./api/logs:/logs
+
+  pipeline:
+    image: jenkins/jenkins:lts
+    ports:
+      - "8080:8080"
+      - "50000:50000"
+    volumes:
+      - ./jenkins:/var/jenkins_home/workspace/pipeline/
+    environment:
+      JAVA_OPTS: -Djenkins.install.runSetupWizard=false
+
+
+volumes:
+  mysql_data:
+
+networks:
+  red_etl:
+    driver: bridge

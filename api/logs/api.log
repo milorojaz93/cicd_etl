@@ -1,0 +1,130 @@
+2025-06-04 20:12:25,679 [INFO] Solicitud para proveedor: ProveedorB
+2025-06-04 20:12:25,801 [INFO] Leídos 2 registros para proveedor: ProveedorB
+2025-06-04 20:12:25,804 [INFO] GET http://localhost:8000/proveedor/ProveedorB - 200 - 0.126s
+2025-06-04 20:12:44,209 [INFO] Solicitud para proveedor: ddd
+2025-06-04 20:12:44,213 [WARNING] No se encontró directorio para proveedor: ddd
+2025-06-04 20:12:44,215 [INFO] GET http://localhost:8000/proveedor/ddd - 404 - 0.007s
+2025-06-04 20:12:47,425 [INFO] GET http://localhost:8000/proveedor - 404 - 0.001s
+2025-06-04 20:14:07,734 [INFO] GET http://localhost:8000/proveedor - 404 - 0.000s
+2025-06-04 20:14:20,402 [INFO] GET http://localhost:8000/proveedor - 404 - 0.000s
+2025-06-04 20:14:21,319 [INFO] GET http://localhost:8000/proveedor - 404 - 0.000s
+2025-06-04 20:14:25,977 [INFO] Solicitud para proveedor: fsfdfd
+2025-06-04 20:14:25,984 [WARNING] No se encontró directorio para proveedor: fsfdfd
+2025-06-04 20:14:25,985 [ERROR] Excepción inesperada: HTTPException.__init__() got an unexpected keyword argument 'respuesta'
+  + Exception Group Traceback (most recent call last):
+  |   File "/usr/local/lib/python3.10/site-packages/starlette/_utils.py", line 76, in collapse_excgroups
+  |     yield
+  |   File "/usr/local/lib/python3.10/site-packages/starlette/middleware/base.py", line 177, in __call__
+  |     async with anyio.create_task_group() as task_group:
+  |   File "/usr/local/lib/python3.10/site-packages/anyio/_backends/_asyncio.py", line 772, in __aexit__
+  |     raise BaseExceptionGroup(
+  | exceptiongroup.ExceptionGroup: unhandled errors in a TaskGroup (1 sub-exception)
+  +-+---------------- 1 ----------------
+    | Traceback (most recent call last):
+    |   File "/usr/local/lib/python3.10/site-packages/starlette/middleware/errors.py", line 165, in __call__
+    |     await self.app(scope, receive, _send)
+    |   File "/usr/local/lib/python3.10/site-packages/starlette/middleware/base.py", line 176, in __call__
+    |     with recv_stream, send_stream, collapse_excgroups():
+    |   File "/usr/local/lib/python3.10/contextlib.py", line 153, in __exit__
+    |     self.gen.throw(typ, value, traceback)
+    |   File "/usr/local/lib/python3.10/site-packages/starlette/_utils.py", line 82, in collapse_excgroups
+    |     raise exc
+    |   File "/usr/local/lib/python3.10/site-packages/starlette/middleware/base.py", line 178, in __call__
+    |     response = await self.dispatch_func(request, call_next)
+    |   File "/app/api.py", line 25, in log_requests
+    |     response = await call_next(request)
+    |   File "/usr/local/lib/python3.10/site-packages/starlette/middleware/base.py", line 156, in call_next
+    |     raise app_exc
+    |   File "/usr/local/lib/python3.10/site-packages/starlette/middleware/base.py", line 141, in coro
+    |     await self.app(scope, receive_or_disconnect, send_no_error)
+    |   File "/usr/local/lib/python3.10/site-packages/starlette/middleware/exceptions.py", line 62, in __call__
+    |     await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+    |   File "/usr/local/lib/python3.10/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    |     raise exc
+    |   File "/usr/local/lib/python3.10/site-packages/starlette/_exception_handler.py", line 42, in wrapped_app
+    |     await app(scope, receive, sender)
+    |   File "/usr/local/lib/python3.10/site-packages/starlette/routing.py", line 714, in __call__
+    |     await self.middleware_stack(scope, receive, send)
+    |   File "/usr/local/lib/python3.10/site-packages/starlette/routing.py", line 734, in app
+    |     await route.handle(scope, receive, send)
+    |   File "/usr/local/lib/python3.10/site-packages/starlette/routing.py", line 288, in handle
+    |     await self.app(scope, receive, send)
+    |   File "/usr/local/lib/python3.10/site-packages/starlette/routing.py", line 76, in app
+    |     await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+    |   File "/usr/local/lib/python3.10/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    |     raise exc
+    |   File "/usr/local/lib/python3.10/site-packages/starlette/_exception_handler.py", line 42, in wrapped_app
+    |     await app(scope, receive, sender)
+    |   File "/usr/local/lib/python3.10/site-packages/starlette/routing.py", line 73, in app
+    |     response = await f(request)
+    |   File "/usr/local/lib/python3.10/site-packages/fastapi/routing.py", line 301, in app
+    |     raw_response = await run_endpoint_function(
+    |   File "/usr/local/lib/python3.10/site-packages/fastapi/routing.py", line 214, in run_endpoint_function
+    |     return await run_in_threadpool(dependant.call, **values)
+    |   File "/usr/local/lib/python3.10/site-packages/starlette/concurrency.py", line 37, in run_in_threadpool
+    |     return await anyio.to_thread.run_sync(func)
+    |   File "/usr/local/lib/python3.10/site-packages/anyio/to_thread.py", line 56, in run_sync
+    |     return await get_async_backend().run_sync_in_worker_thread(
+    |   File "/usr/local/lib/python3.10/site-packages/anyio/_backends/_asyncio.py", line 2470, in run_sync_in_worker_thread
+    |     return await future
+    |   File "/usr/local/lib/python3.10/site-packages/anyio/_backends/_asyncio.py", line 967, in run
+    |     result = context.run(func, *args)
+    |   File "/app/api.py", line 38, in get_proveedor
+    |     raise HTTPException(status_code=404, respuesta="Proveedor no encontrado")
+    | TypeError: HTTPException.__init__() got an unexpected keyword argument 'respuesta'
+    +------------------------------------
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/site-packages/starlette/middleware/errors.py", line 165, in __call__
+    await self.app(scope, receive, _send)
+  File "/usr/local/lib/python3.10/site-packages/starlette/middleware/base.py", line 176, in __call__
+    with recv_stream, send_stream, collapse_excgroups():
+  File "/usr/local/lib/python3.10/contextlib.py", line 153, in __exit__
+    self.gen.throw(typ, value, traceback)
+  File "/usr/local/lib/python3.10/site-packages/starlette/_utils.py", line 82, in collapse_excgroups
+    raise exc
+  File "/usr/local/lib/python3.10/site-packages/starlette/middleware/base.py", line 178, in __call__
+    response = await self.dispatch_func(request, call_next)
+  File "/app/api.py", line 25, in log_requests
+    response = await call_next(request)
+  File "/usr/local/lib/python3.10/site-packages/starlette/middleware/base.py", line 156, in call_next
+    raise app_exc
+  File "/usr/local/lib/python3.10/site-packages/starlette/middleware/base.py", line 141, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "/usr/local/lib/python3.10/site-packages/starlette/middleware/exceptions.py", line 62, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "/usr/local/lib/python3.10/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "/usr/local/lib/python3.10/site-packages/starlette/_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "/usr/local/lib/python3.10/site-packages/starlette/routing.py", line 714, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "/usr/local/lib/python3.10/site-packages/starlette/routing.py", line 734, in app
+    await route.handle(scope, receive, send)
+  File "/usr/local/lib/python3.10/site-packages/starlette/routing.py", line 288, in handle
+    await self.app(scope, receive, send)
+  File "/usr/local/lib/python3.10/site-packages/starlette/routing.py", line 76, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "/usr/local/lib/python3.10/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "/usr/local/lib/python3.10/site-packages/starlette/_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "/usr/local/lib/python3.10/site-packages/starlette/routing.py", line 73, in app
+    response = await f(request)
+  File "/usr/local/lib/python3.10/site-packages/fastapi/routing.py", line 301, in app
+    raw_response = await run_endpoint_function(
+  File "/usr/local/lib/python3.10/site-packages/fastapi/routing.py", line 214, in run_endpoint_function
+    return await run_in_threadpool(dependant.call, **values)
+  File "/usr/local/lib/python3.10/site-packages/starlette/concurrency.py", line 37, in run_in_threadpool
+    return await anyio.to_thread.run_sync(func)
+  File "/usr/local/lib/python3.10/site-packages/anyio/to_thread.py", line 56, in run_sync
+    return await get_async_backend().run_sync_in_worker_thread(
+  File "/usr/local/lib/python3.10/site-packages/anyio/_backends/_asyncio.py", line 2470, in run_sync_in_worker_thread
+    return await future
+  File "/usr/local/lib/python3.10/site-packages/anyio/_backends/_asyncio.py", line 967, in run
+    result = context.run(func, *args)
+  File "/app/api.py", line 38, in get_proveedor
+    raise HTTPException(status_code=404, respuesta="Proveedor no encontrado")
+TypeError: HTTPException.__init__() got an unexpected keyword argument 'respuesta'
