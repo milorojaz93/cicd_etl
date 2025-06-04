@@ -21,7 +21,7 @@ pipeline {
             steps {
                 sh '''
                     . ${VENV}/bin/activate
-                    flake8 src/ tests/ || true  # No detiene el pipeline si hay warnings
+                    flake8 src/tests/ || true 
                 '''
             }
         }
