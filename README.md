@@ -12,7 +12,7 @@ Encargado de disponibilizar los datos de la carpeta bucket en un api sencillo. L
     - Validación de sintaxis con Flake8
     - Ejecución de pruebas con Pytest
     - Generación de documentación con Pdoc 
-## 📌 Descripción del Pipeline
+## Descripción del Pipeline
 
 El `Jenkinsfile` define un pipeline con las siguientes etapas:
 
