@@ -1,0 +1,60 @@
+pipeline {
+    agent any
+
+    environment {
+        VENV = ".venv"
+    }
+
+    stages {
+        stage('Crear entorno virtual e instalar dependencias') {
+            steps {
+                sh '''
+                    python3 -m venv ${VENV}
+                    . ${VENV}/bin/activate
+                    pip install --upgrade pip
+                    pip install -r requirements.txt
+                '''
+            }
+        }
+
+        stage('Validar sintaxis') {
+            steps {
+                sh '''
+                    . ${VENV}/bin/activate
+                    flake8 src/ tests/ || true  # No detiene el pipeline si hay warnings
+                '''
+            }
+        }
+
+        stage('Ejecutar pruebas') {
+            steps {
+                sh '''
+                    . ${VENV}/bin/activate
+                    pytest --junitxml=tests/results.xml tests/
+                '''
+            }
+        }
+
+        stage('Generar documentación') {
+            steps {
+                sh '''
+                    . ${VENV}/bin/activate
+                    pdoc --html src -o docs --force
+                '''
+            }
+        }
+    }
+
+    post {
+        always {
+            archiveArtifacts artifacts: 'docs/**/*', allowEmptyArchive: true
+            junit 'tests/results.xml'
+        }
+        failure {
+            echo 'Falló el pipeline. Revisa los logs.'
+        }
+        success {
+            echo 'Pipeline ejecutado exitosamente.'
+        }
+    }
+}

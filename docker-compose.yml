@@ -38,14 +38,17 @@ services:
       - ./api/logs:/logs
 
   pipeline:
-    image: jenkins/jenkins:lts
+    build: ./jenkins
     ports:
       - "8080:8080"
       - "50000:50000"
-    volumes:
-      - ./jenkins:/var/jenkins_home/workspace/pipeline/
     environment:
-      JAVA_OPTS: -Djenkins.install.runSetupWizard=false
+      - JAVA_OPTS=-Djenkins.install.runSetupWizard=false
+      - CASC_JENKINS_CONFIG=/var/jenkins_home/casc.yaml
+    volumes:
+      - ./jenkins_home:/var/jenkins_home
+      - ./jenkins/casc.yaml:/var/jenkins_home/casc.yaml
+      - ./jenkins/pipeline/:/var/jenkins_home/workspace/pipeline/
 
 
 volumes:

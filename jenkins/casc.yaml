@@ -1,0 +1,29 @@
+jenkins:
+  systemMessage: "Jenkins configurado automáticamente 🚀"
+  securityRealm:
+    local:
+      allowsSignup: false
+      users:
+        - id: admin
+          name: "Admin"
+          password: admin
+  authorizationStrategy:
+    loggedInUsersCanDoAnything:
+      allowAnonymousRead: false
+
+unclassified:
+  jobDsl:
+    scriptApproval:
+      approvedScriptHashes:
+        - ""
+
+jobs:
+  - script: >
+      job('seed-job') {
+          description('Job para crear el pipeline etl-proveedores')
+          steps {
+              dsl {
+                  external('/var/jenkins_home/workspace/pipeline/pipeline.groovy')
+              }
+          }
+      }
